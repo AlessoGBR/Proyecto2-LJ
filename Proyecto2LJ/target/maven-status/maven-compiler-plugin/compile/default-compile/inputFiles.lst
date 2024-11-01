@@ -1,6 +1,14 @@
+/home/alesso/NetBeansProjects/Proyecto2-LJ/Proyecto2LJ/src/main/java/Backend/AnalizadorDDL.java
+/home/alesso/NetBeansProjects/Proyecto2-LJ/Proyecto2LJ/src/main/java/Backend/Archivo.java
 /home/alesso/NetBeansProjects/Proyecto2-LJ/Proyecto2LJ/src/main/java/Backend/NumeroLinea.java
+/home/alesso/NetBeansProjects/Proyecto2-LJ/Proyecto2LJ/src/main/java/Backend/SyntaxException.java
 /home/alesso/NetBeansProjects/Proyecto2-LJ/Proyecto2LJ/src/main/java/Flex/AnalizadorLexico.java
 /home/alesso/NetBeansProjects/Proyecto2-LJ/Proyecto2LJ/src/main/java/Flex/Token.java
+/home/alesso/NetBeansProjects/Proyecto2-LJ/Proyecto2LJ/src/main/java/Flex/TokenColor.java
 /home/alesso/NetBeansProjects/Proyecto2-LJ/Proyecto2LJ/src/main/java/Flex/TokenType.java
 /home/alesso/NetBeansProjects/Proyecto2-LJ/Proyecto2LJ/src/main/java/Frontend/MenuPrincipal.java
+/home/alesso/NetBeansProjects/Proyecto2-LJ/Proyecto2LJ/src/main/java/Frontend/ReporteLexico.java
+/home/alesso/NetBeansProjects/Proyecto2-LJ/Proyecto2LJ/src/main/java/Frontend/ReporteModificadas.java
+/home/alesso/NetBeansProjects/Proyecto2-LJ/Proyecto2LJ/src/main/java/Frontend/ReporteOperaciones.java
+/home/alesso/NetBeansProjects/Proyecto2-LJ/Proyecto2LJ/src/main/java/Frontend/ReporteTablas.java
 /home/alesso/NetBeansProjects/Proyecto2-LJ/Proyecto2LJ/src/main/java/com/mycompany/proyecto2lj/Proyecto2LJ.java

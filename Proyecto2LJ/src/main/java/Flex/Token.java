@@ -12,6 +12,7 @@ public class Token {
 
     private String lexema;
     private TokenType type;
+    private String modificacion;
     private int fila;
     private int columna;
 
@@ -21,7 +22,7 @@ public class Token {
         this.fila = fila;
         this.columna = columna;
     }
-    
+
     public TokenType getType() {
         return type;
     }
@@ -49,7 +50,15 @@ public class Token {
     public void setColumna(int columna) {
         this.columna = columna;
     }
-    
+
+    public String getModificacion() {
+        return modificacion;
+    }
+
+    public void setModificacion(String modificacion) {
+        this.modificacion = modificacion;
+    }
+
     @Override
     public String toString() {
         return "Token{" + "tipoToken=" + type + ", fila=" + fila + ", columna=" + columna + ", lexema=" + lexema + '}';

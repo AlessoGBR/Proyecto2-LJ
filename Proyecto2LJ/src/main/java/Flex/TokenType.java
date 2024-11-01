@@ -9,7 +9,7 @@ package Flex;
  * @author alesso
  */
 public enum TokenType {
-    // Keywords
+    
     CREATE,
     DATABASE,
     TABLE,
@@ -46,12 +46,12 @@ public enum TokenType {
     DESC,
     LIMIT,
     JOIN,
-
-    // Data Types
+    
     INTEGER_TYPE,
     BIGINT_TYPE,
     VARCHAR_TYPE,
     DECIMAL_TYPE,
+    NUMERIC_TYPE,
     DATE_TYPE,
     TEXT_TYPE,
     BOOLEAN_TYPE,
@@ -59,34 +59,51 @@ public enum TokenType {
     CADENA,
     TIPO_DATO,
     FUNCION_AGREGACION,
+    SUM,
+    AVG,
+    MAX,
+    MIN,
+    COUNT,
     LOGICO,
-
-    // Constants
+    
     ENTERO,
     DECIMAL,
     ARITMETICO,
     SIGNO,
     ID,
+    IDENTIFY,
     RELACIONAL,
     FECHA,
     STRING,
     BOOLEAN,
+    AGGREGATE_FUNCTION, 
 
-    // Functions
-    AGGREGATE_FUNCTION,  // SUM, AVG, COUNT, MAX, MIN
+    SEMICOLON,
+    LEFT_PAREN,
+    RIGHT_PAREN,
+    COMMA,
+    EQUAL,
+    ARITHMETIC_OPERATOR,
+    
+    SUMA,
+    RESTA,
+    MULTIPLICACION,
+    DIVICION,
+    MAYOR,
+    MENOR,
+    MAYOR_IGUAL,
+    MENOR_IGUAL,
+    NO_IGUALES,
+    RELATIONAL_OPERATOR, 
+    LOGICAL_OPERATOR,
+    AND,
+    OR,
+    NOT,
 
-    // Operators and Symbols
-    SIGN,                // Parentheses, commas, semicolons, etc.
-    ARITHMETIC_OPERATOR, // +, -, *, /
-    RELATIONAL_OPERATOR, // <, >, <=, >=
-    LOGICAL_OPERATOR,    // AND, OR, NOT
-
-    // Identifiers and Comments
-    IDENTIFIER,          // e.g., variable names, table names
+    ID_PUNTO,
     COMMENT,
+    ERROR,
+    ESPACIO,
 
-    ERROR,// SQL single-line comments
-
-    // End of File
     EOF
 }

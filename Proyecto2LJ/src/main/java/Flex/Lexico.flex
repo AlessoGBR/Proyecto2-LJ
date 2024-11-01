@@ -1,33 +1,21 @@
 package Flex;
-import TokenType;
-import Token;
+
 %%
 
 // Configuración de JFlex
 %public
 %class AnalizadorLexico
-%char
 %unicode
 %line
 %column
-%ignorecase
 %standalone
-
-%type Token
 
 // Expresiones regulares
 PALABRA = [a-zA-Z]+
-LETRA_MINUSCULA = [a-z]
-LETRA_MAYUSCULA = [A-Z]
-NUMERO = [0-9]
-DECIMAL = [0-9]+"."[0-9]+
+IDENTIFICADOR = [a-zA-Z_][a-zA-Z_0-9]*
+NUMERO = "-"?[0-9]+
+DECIMAL = "-"?[0-9]+("." [0-9]+)?
 ESPACIO = [" "\r\t\n\f]
-
-
-// Código cuando se alcanza el fin de archivo
-%eofval{
-    return new Token(null,TokenType.EOF, -1, -1);
-%eofval}
 
 // Inicialización
 %init{
@@ -35,13 +23,15 @@ ESPACIO = [" "\r\t\n\f]
     yycolumn = 0;
 %init}
 
-%{
+%{    
     private Token token(String value, TokenType type) {
       return new Token(value, type, yyline, yycolumn);
   }
 %}
 
-
+%eofval{
+    return new Token(null, TokenType.EOF, -1, -1);
+%eofval}
 
 // Estados
 %state COMMENT
@@ -91,46 +81,71 @@ ESPACIO = [" "\r\t\n\f]
     "JOIN"             { return token(yytext(), TokenType.JOIN); }
 
     // Tipos de datos
-    "INTEGER"|"BIGINT" { return token(yytext(), TokenType.TIPO_DATO); }
-    "VARCHAR"          { return token(yytext(), TokenType.TIPO_DATO); }
-    "DECIMAL"          { return token(yytext(), TokenType.TIPO_DATO); }
-    "DATE"             { return token(yytext(), TokenType.TIPO_DATO); }
-    "TEXT"             { return token(yytext(), TokenType.TIPO_DATO); }
-    "BOOLEAN"          { return token(yytext(), TokenType.TIPO_DATO); }
-    "SERIAL"           { return token(yytext(), TokenType.TIPO_DATO); }
+    "INTEGER"          { return token(yytext(), TokenType.INTEGER_TYPE); }
+    "BIGINT"           { return token(yytext(), TokenType.BIGINT_TYPE); }
+    "VARCHAR"          { return token(yytext(), TokenType.VARCHAR_TYPE); }
+    "DECIMAL"          { return token(yytext(), TokenType.DECIMAL_TYPE); }
+    "NUMERIC"          { return token(yytext(), TokenType.NUMERIC_TYPE); }
+    "DATE"             { return token(yytext(), TokenType.DATE_TYPE); }
+    "TEXT"             { return token(yytext(), TokenType.TEXT_TYPE); }
+    "BOOLEAN"          { return token(yytext(), TokenType.BOOLEAN_TYPE); }
+    "SERIAL"           { return token(yytext(), TokenType.SERIAL_TYPE); }
 
     // Constantes y Literales
     {NUMERO}           { return token(yytext(), TokenType.ENTERO); }
     {DECIMAL}          { return token(yytext(), TokenType.DECIMAL); }
     "'"[0-9]{4}-[0-9]{2}-[0-9]{2}"'" { return token(yytext(), TokenType.FECHA); }
-    "'"[^']*"'?"       { return token(yytext(), TokenType.CADENA); }
-
-    // Identificadores
-    {LETRA_MINUSCULA}({LETRA_MINUSCULA}|{NUMERO}|"_")* {
-                        return token(yytext(), TokenType.ID);
-                      }
-
+    \'([^\']*)\'       { return token(yytext(), TokenType.CADENA); }
+    
     // Booleanos
     "TRUE"|"FALSE"     { return token(yytext(), TokenType.BOOLEAN); }
 
     // Funciones de Agregación
-    "SUM"|"AVG"|"COUNT"|"MAX"|"MIN" { return token(yytext(), TokenType.FUNCION_AGREGACION); }
+    "SUM"              { return token(yytext(), TokenType.SUM); }
+    "AVG"              { return token(yytext(), TokenType.AVG); }
+    "COUNT"            { return token(yytext(), TokenType.COUNT); }
+    "MAX"              { return token(yytext(), TokenType.MAX); }
+    "MIN"              { return token(yytext(), TokenType.MIN); }
 
     // Operadores y símbolos
-    "("                { return token(yytext(), TokenType.SIGNO); }
-    ")"                { return token(yytext(), TokenType.SIGNO); }
-    ","                { return token(yytext(), TokenType.SIGNO); }
-    ";"                { return token(yytext(), TokenType.SIGNO); }
-    "="                { return token(yytext(), TokenType.SIGNO); }
-    "+"|"-"|"*"|"/"    { return token(yytext(), TokenType.ARITMETICO); }
-    "<"|">"|"<="|">="  { return token(yytext(), TokenType.RELACIONAL); }
-    "AND"|"OR"|"NOT"   { return token(yytext(), TokenType.LOGICO); }
+    "("                { return token(yytext(), TokenType.LEFT_PAREN); }
+    ")"                { return token(yytext(), TokenType.RIGHT_PAREN ); }
+    ","                { return token(yytext(), TokenType.COMMA); }
+    ";"                { return token(yytext(), TokenType.SEMICOLON); }
+    "="                { return token(yytext(), TokenType.EQUAL); }
+    "+"                { return token(yytext(), TokenType.SUMA); }
+    "-"                { return token(yytext(), TokenType.RESTA); }
+    "*"                { return token(yytext(), TokenType.MULTIPLICACION); }
+    "/"                { return token(yytext(), TokenType.DIVICION); }
+    "<"                { return token(yytext(), TokenType.MENOR); }
+    ">"                { return token(yytext(), TokenType.MAYOR); }
+    "<="               { return token(yytext(), TokenType.MENOR_IGUAL); }
+    ">="               { return token(yytext(), TokenType.MAYOR_IGUAL); }
+    "!="               { return token(yytext(), TokenType.NO_IGUALES); }
+    "AND"              { return token(yytext(), TokenType.AND); }
+    "OR"               { return token(yytext(), TokenType.OR); }
+    "NOT"              { return token(yytext(), TokenType.NOT); }
 
     // Comentarios
     "--"               { yybegin(COMMENT); }
+
+    // Identificadores
+    {PALABRA}({PALABRA}|{NUMERO}|"_")* {
+                        return token(yytext(), TokenType.ID);
+    }
+    {IDENTIFICADOR}\.{IDENTIFICADOR} {
+                        return token(yytext(),TokenType.ID_PUNTO);
+    }
+
+    {ESPACIO} {}
+
+    // Regla para manejar errores
+    .                   { 
+                        return token(yytext(), TokenType.ERROR);
+                    }
+
+
 }
 
 <COMMENT>[^\\n]+  { /* ignorar el contenido del comentario */ }
 <COMMENT>\\n      { yybegin(YYINITIAL); }
-
-<YYINITIAL> {ESPACIO} {}
