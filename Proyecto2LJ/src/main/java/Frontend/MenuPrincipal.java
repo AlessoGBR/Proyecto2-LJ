@@ -6,6 +6,7 @@ package Frontend;
 
 import Backend.AnalizadorSintactico;
 import Backend.Archivo;
+import Backend.GraphvizController;
 import Backend.NumeroLinea;
 import Backend.SyntaxException;
 import Flex.AnalizadorLexico;
@@ -31,6 +32,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private ArrayList<Token> ErrorLexico;
     private ArrayList<Token> Tablas;
     private ArrayList<Token> TablasModificadas;
+    private ArrayList<Token> Tokens;
     private int create = 0;
     private int delete = 0;
     private int update = 0;
@@ -48,6 +50,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnTablas.setEnabled(false);
         btnModificadas.setEnabled(false);
         btnReportes3.setEnabled(false);
+        btnGrafica.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -64,6 +67,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnTablas = new javax.swing.JButton();
         btnModificadas = new javax.swing.JButton();
         btnReportes3 = new javax.swing.JButton();
+        btnGrafica = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MENU PRINCIPAL");
@@ -146,6 +150,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnGrafica.setText("GRAFICA");
+        btnGrafica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGraficaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -157,13 +168,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         .addComponent(panelTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
+                        .addGap(13, 13, 13)
                         .addComponent(bntSubir)
                         .addGap(18, 18, 18)
                         .addComponent(btnGuardar)
                         .addGap(18, 18, 18)
                         .addComponent(btnAnalizar)
-                        .addGap(154, 154, 154)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnGrafica)
+                        .addGap(78, 78, 78)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnReportes)
                             .addComponent(btnTablas))
@@ -171,7 +184,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnReportes3)
                             .addComponent(btnModificadas))
-                        .addContainerGap(141, Short.MAX_VALUE))))
+                        .addContainerGap(137, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,7 +195,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bntSubir)
                             .addComponent(btnAnalizar)
-                            .addComponent(btnGuardar))
+                            .addComponent(btnGuardar)
+                            .addComponent(btnGrafica))
                         .addGap(29, 29, 29))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
@@ -208,6 +222,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.ErrorSintactico = new ArrayList<>();
         this.Tablas = new ArrayList<>();
         this.TablasModificadas = new ArrayList<>();
+        this.Tokens = new ArrayList<>();
         if (txtCodigo.getText().length() != 0) {
             AnalizadorLexico lexer = new AnalizadorLexico(new StringReader(txtCodigo.getText()));
             TokenColor color = new TokenColor(txtCodigo);
@@ -235,22 +250,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
         try {
             analizarDDL.parse();
             this.create = analizarDDL.getCreate();
-        this.delete = analizarDDL.getDelete();
-        this.update = analizarDDL.getUpdate();
-        this.select = analizarDDL.getSelect();
-        this.alter = analizarDDL.getAlter();
+            this.delete = analizarDDL.getDelete();
+            this.update = analizarDDL.getUpdate();
+            this.select = analizarDDL.getSelect();
+            this.alter = analizarDDL.getAlter();
             JOptionPane.showMessageDialog(null, "CODIGO ANALIZADO, NINGUN ERROR ENCONTRADO");
         } catch (SyntaxException ex) {
             ErrorSintactico = analizarDDL.getError();
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
+        this.Tokens = tokens;
         this.Tablas = analizarDDL.getTablas();
         this.TablasModificadas = analizarDDL.getTablasModificadas();
         btnReportes3.setEnabled(true);
         btnReportes.setEnabled(true);
         btnTablas.setEnabled(true);
         btnModificadas.setEnabled(true);
-
+        btnGrafica.setEnabled(true);
     }//GEN-LAST:event_btnAnalizarActionPerformed
 
     private void bntSubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSubirActionPerformed
@@ -311,14 +327,32 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificadasActionPerformed
 
     private void btnReportes3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportes3ActionPerformed
-        ReporteOperaciones operacion = new ReporteOperaciones(this.create,this.delete,this.update,this.select,this.alter);
+        ReporteOperaciones operacion = new ReporteOperaciones(this.create, this.delete, this.update, this.select, this.alter);
         operacion.setVisible(true);
     }//GEN-LAST:event_btnReportes3ActionPerformed
+
+    private void btnGraficaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraficaActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Selecciona la ubicación para guardar el gráfico");
+        if (Tokens != null) {
+            int userSelection = fileChooser.showSaveDialog(null);
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                GraphvizController imagen = new GraphvizController(Tokens, selectedFile.getAbsolutePath());
+                imagen.generateDiagram();
+                JOptionPane.showMessageDialog(null, "GRAFICA CREADA");
+            } else {
+                JOptionPane.showMessageDialog(null, "NO SE SELECCINO");
+            }
+        }
+
+    }//GEN-LAST:event_btnGraficaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntSubir;
     private javax.swing.JButton btnAnalizar;
+    private javax.swing.JButton btnGrafica;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnModificadas;
     private javax.swing.JButton btnReportes;

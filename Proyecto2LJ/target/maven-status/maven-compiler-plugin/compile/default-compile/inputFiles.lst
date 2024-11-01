@@ -1,5 +1,6 @@
-/home/alesso/NetBeansProjects/Proyecto2-LJ/Proyecto2LJ/src/main/java/Backend/AnalizadorDDL.java
+/home/alesso/NetBeansProjects/Proyecto2-LJ/Proyecto2LJ/src/main/java/Backend/AnalizadorSintactico.java
 /home/alesso/NetBeansProjects/Proyecto2-LJ/Proyecto2LJ/src/main/java/Backend/Archivo.java
+/home/alesso/NetBeansProjects/Proyecto2-LJ/Proyecto2LJ/src/main/java/Backend/GraphvizController.java
 /home/alesso/NetBeansProjects/Proyecto2-LJ/Proyecto2LJ/src/main/java/Backend/NumeroLinea.java
 /home/alesso/NetBeansProjects/Proyecto2-LJ/Proyecto2LJ/src/main/java/Backend/SyntaxException.java
 /home/alesso/NetBeansProjects/Proyecto2-LJ/Proyecto2LJ/src/main/java/Flex/AnalizadorLexico.java

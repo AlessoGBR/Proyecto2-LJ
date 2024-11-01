@@ -33,13 +33,15 @@
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                       <Component id="bntSubir" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnAnalizar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnGrafica" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btnReportes" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="btnTablas" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -49,7 +51,7 @@
                           <Component id="btnReportes3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnModificadas" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="141" max="32767" attributes="0"/>
+                      <EmptySpace pref="137" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -65,6 +67,7 @@
                           <Component id="bntSubir" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnAnalizar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnGrafica" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                   </Group>
@@ -204,6 +207,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReportes3ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnGrafica">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="GRAFICA"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGraficaActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
