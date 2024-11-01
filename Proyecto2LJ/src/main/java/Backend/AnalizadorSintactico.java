@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *
  * @author alesso
  */
-public class AnalizadorDDL {
+public class AnalizadorSintactico {
 
     private final ArrayList<Token> tokens;
     private ArrayList<Token> Error;
@@ -28,7 +28,7 @@ public class AnalizadorDDL {
     private int alter = 0;
     private Token currentToken;
 
-    public AnalizadorDDL(ArrayList<Token> tokens) {
+    public AnalizadorSintactico(ArrayList<Token> tokens) {
         this.tokens = tokens;
         this.iterator = tokens.iterator();
         Error = new ArrayList<>();

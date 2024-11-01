@@ -4,7 +4,7 @@
  */
 package Frontend;
 
-import Backend.AnalizadorDDL;
+import Backend.AnalizadorSintactico;
 import Backend.Archivo;
 import Backend.NumeroLinea;
 import Backend.SyntaxException;
@@ -47,6 +47,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnReportes.setEnabled(false);
         btnTablas.setEnabled(false);
         btnModificadas.setEnabled(false);
+        btnReportes3.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -230,7 +231,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             return;
         }
 
-        AnalizadorDDL analizarDDL = new AnalizadorDDL(tokens);
+        AnalizadorSintactico analizarDDL = new AnalizadorSintactico(tokens);
         try {
             analizarDDL.parse();
             this.create = analizarDDL.getCreate();
@@ -245,7 +246,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         }
         this.Tablas = analizarDDL.getTablas();
         this.TablasModificadas = analizarDDL.getTablasModificadas();
-        
+        btnReportes3.setEnabled(true);
         btnReportes.setEnabled(true);
         btnTablas.setEnabled(true);
         btnModificadas.setEnabled(true);
